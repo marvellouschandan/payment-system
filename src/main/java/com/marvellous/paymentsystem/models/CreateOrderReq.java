@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @Data
@@ -14,5 +15,5 @@ import java.util.Map;
 public class CreateOrderReq {
     Float amount;
     String currency;
-    Map<String, String> notes;
+    Map<String, String> notes = new HashMap<>();
 }

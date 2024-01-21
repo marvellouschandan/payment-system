@@ -17,7 +17,7 @@ public class SequenceGeneratorService {
     }
 
     @Transactional(isolation = Isolation.SERIALIZABLE)
-    public Long getNextSequence(SequenceName sequenceName) {
+    private Long getNextSequence(SequenceName sequenceName) {
         SequenceGenerator sequenceGenerator = sequenceGeneratorRepository.findById(sequenceName.getValue())
                 .orElseGet(() -> {
                     SequenceGenerator newSequenceGenerator = SequenceGenerator.builder()
@@ -31,5 +31,10 @@ public class SequenceGeneratorService {
         sequenceGenerator.setSequence(currentSequence + 1L);
         sequenceGeneratorRepository.save(sequenceGenerator);
         return currentSequence;
+    }
+
+    public String getNextReceipt() {
+        SequenceName sequenceName = SequenceName.RECEIPT;
+        return String.format("%s%s", sequenceName.getValue(), getNextSequence(sequenceName));
     }
 }
